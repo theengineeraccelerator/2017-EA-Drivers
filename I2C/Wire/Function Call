@@ -1,0 +1,85 @@
+   TwoWire()
+ 
+ void   begin(void)
+   twi_init();
+
+ void   begin(uint8_t address)
+   twi_setAddress(address);
+   twi_attachSlaveTxEvent(onRequestService);
+   twi_attachSlaveRxEvent(onReceiveService);
+   begin();
+ 
+ void   begin(int address)
+   begin((uint8_t)address);
+ 
+ void   end(void)
+   twi_disable();
+ 
+ void   setClock(uint32_t frequency)
+ 
+ uint8_t    requestFrom(uint8_t address, uint8_t quantity, uint32_t iaddress, uint8_t isize, uint8_t sendStop)
+   beginTransmission(address);
+     write((uint8_t)(iaddress >> (isize*8)));
+   endTransmission(false);
+   if(quantity > BUFFER_LENGTH){
+   uint8_t read = twi_readFrom(address, rxBuffer, quantity, sendStop);
+ 
+ uint8_t    requestFrom(uint8_t address, uint8_t quantity, uint8_t sendStop) {
+  return requestFrom((uint8_t)address, (uint8_t)quantity, (uint32_t)0, (uint8_t)0, (uint8_t)sendStop);
+ 
+ uint8_t    requestFrom(uint8_t address, uint8_t quantity)
+   return requestFrom((uint8_t)address, (uint8_t)quantity, (uint8_t)true);
+ 
+ uint8_t    requestFrom(int address, int quantity)
+   return requestFrom((uint8_t)address, (uint8_t)quantity, (uint8_t)true);
+ 
+ uint8_t    requestFrom(int address, int quantity, int sendStop)
+   return requestFrom((uint8_t)address, (uint8_t)quantity, (uint8_t)sendStop);
+ 
+ void   beginTransmission(uint8_t address)
+ 
+ void   beginTransmission(int address)
+   beginTransmission((uint8_t)address);
+ 
+   int8_t ret = twi_writeTo(txAddress, txBuffer, txBufferLength, 1, sendStop);
+ 
+ uint8_t    endTransmission(void)
+   return endTransmission(true);or after beginTransmission(address)
+ 
+ size_t   write(uint8_t data)
+   if(transmitting){
+     if(txBufferLength >= BUFFER_LENGTH){
+       setWriteError();
+     twi_transmit(&data, 1);or after beginTransmission(address)
+ 
+ size_t   write(const uint8_t *data, size_t quantity)
+   if(transmitting){
+     for(size_t i = 0; i < quantity; ++i){
+       write(data[i]);
+     twi_transmit(data, quantity);
+
+ 
+ int    available(void)
+ 
+ int    read(void)
+   if(rxBufferIndex < rxBufferLength){
+ 
+ int    peek(void)
+   if(rxBufferIndex < rxBufferLength){
+ 
+ void   flush(void)
+ 
+ void   onReceiveService(uint8_t* inBytes, int numBytes)
+   if(!user_onReceive){
+   if(rxBufferIndex < rxBufferLength){
+   for(uint8_t i = 0; i < numBytes; ++i){
+   user_onReceive(numBytes);
+ 
+ void   onRequestService(void)
+   if(!user_onRequest){
+   user_onRequest();
+ 
+ void   onReceive( void (*function)(int) )
+ 
+ void   onRequest( void (*function)(void) )
+ Wire = TwoWire();

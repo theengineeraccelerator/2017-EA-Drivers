@@ -1,0 +1,75 @@
+
+begin(int address)
+--->begin((uint8_t)address);
+	--->twi_setAddress(address);
+	--->twi_attachSlaveTxEvent(onRequestService);
+	--->twi_attachSlaveRxEvent(onReceiveService);
+	--->begin();
+		--->twi_init();
+
+
+end(void)
+--->twi_disable();
+
+setClock(uint32_t frequency)
+
+requestFrom(int address, int quantity)
+--->requestFrom((uint8_t)address, (uint8_t)quantity, (uint8_t)true);
+
+requestFrom(uint8_t address, uint8_t quantity)
+--->requestFrom((uint8_t)address, (uint8_t)quantity, (uint8_t)true);
+
+requestFrom(int address, int quantity, int sendStop)
+--->requestFrom((uint8_t)address, (uint8_t)quantity, (uint8_t)sendStop);
+
+
+--->requestFrom(uint8_t address, uint8_t quantity, uint8_t sendStop)
+	--->requestFrom((uint8_t)address, (uint8_t)quantity, (uint32_t)0, (uint8_t)0, (uint8_t)sendStop);
+	--->requestFrom(uint8_t address, uint8_t quantity, uint32_t iaddress, uint8_t isize, uint8_t sendStop)
+
+
+beginTransmission(int address)
+--->beginTransmission((uint8_t)address);
+beginTransmission(uint8_t address)
+
+endTransmission(void)
+--->endTransmission(true);
+endTransmission(uint8_t sendStop)
+--->ret = twi_writeTo(txAddress, txBuffer, txBufferLength, 1, sendStop);
+
+write(uint8_t data)
+	if(transmitting){
+     if(txBufferLength >= BUFFER_LENGTH){
+       setWriteError();
+    else
+     twi_transmit(&data, 1);
+
+write(const uint8_t *data, size_t quantity)
+    if(transmitting){
+     for(size_t i = 0; i < quantity; ++i){
+       write(data[i]);
+    else
+     twi_transmit(data, quantity);
+
+
+available(void)
+read(void)
+flush(void)
+
+
+onReceiveService(uint8_t* inBytes, int numBytes)
+   if(!user_onReceive){
+   if(rxBufferIndex < rxBufferLength){
+   for(uint8_t i = 0; i < numBytes; ++i){
+   user_onReceive(numBytes);
+
+onRequestService(void)
+   if(!user_onRequest){
+   user_onRequest();
+
+onReceive( void (*function)(int) )
+onRequest( void (*function)(void) )
+
+
+
+
