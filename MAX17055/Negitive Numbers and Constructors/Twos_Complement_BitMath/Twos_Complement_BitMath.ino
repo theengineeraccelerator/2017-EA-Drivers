@@ -10,10 +10,12 @@ int postive_value;
 
 void setup() {
   Serial.begin (115200);
+  Serial.println ("1.8.4");
   Serial.println ("'Negative' Hex");
   Serial.print ("Uninterpreted register Hex "); Serial.println (registerHex);
   Serial.print ("Uninterpreted register Hex in Binary: "); Serial.println (registerHex, BIN);
   // cast to a signed interpretation
+  Serial.print ("Int cast register Hex "); Serial.println ((int)registerHex);
   Serial.print ("Interpreted register Hex "); Serial.println ((signed)registerHex);
   Serial.print ("Interpreted register Hex in Binary: "); Serial.println (registerHex, BIN);
   Serial.println("");
@@ -23,6 +25,7 @@ void setup() {
   Serial.print ("Uninterpreted register Hex "); Serial.println (registerHex);
   Serial.print ("Uninterpreted register Hex in Binary: "); Serial.println (registerHex, BIN);
   // cast to a signed interpretation
+  Serial.print ("Int cast register Hex "); Serial.println ((int)registerHex);
   Serial.print ("Interpreted register Hex "); Serial.println ((signed)registerHex);
   Serial.print ("Interpreted register Hex in Binary: "); Serial.println (registerHex, BIN);
   Serial.println("");
