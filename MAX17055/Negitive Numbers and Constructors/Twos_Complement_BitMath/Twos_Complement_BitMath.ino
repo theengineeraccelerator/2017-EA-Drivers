@@ -3,7 +3,7 @@
  *  Project: 2's Complement Example
  * 
  */
-#include <stdint.h>
+//#include <stdint.h>
 
 unsigned int registerHex = 0xFFFF;
 uint16_t  u_registerHex = 0xFFFF;
